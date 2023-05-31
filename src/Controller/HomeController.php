@@ -24,11 +24,17 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        $array_day=$this->action->getAction();
+        $array_day = $this->action->getAction();
+        $dayDate = $this->action->getAction();
+        $hour = $this->action->getAction();
 
-        dd($array_day);
-
-        return $this->render('pages/Home.html.twig');
+        return $this->render('pages/Home.html.twig',
+            [
+                '$array_day' => $array_day,
+                '$dayDate' => $dayDate,
+                '$hour' => $hour,
+            ]
+        );
     }
 }
 
