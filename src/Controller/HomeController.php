@@ -2,24 +2,33 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use App\Service\ActionGenerator;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
+use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController
+class HomeController extends AbstractController
 {
-    /**
-     * @var Environment
-     */
+    private $manager;
 
-    private Environment $twig;
+    private $action;
 
-    public function __construct($twig)
+    public function __construct(EntityManagerInterface $manager, ActionGenerator $action)
     {
-        $this->twig = $twig;
+        $this->manager = $manager;
+
+        $this->action = $action;
     }
 
+    #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        return new Response($this->twig->render('pages/Home.html.twig'));
+        $array_day=$this->action->getAction();
+
+        dd($array_day);
+
+        return $this->render('pages/Home.html.twig');
     }
 }
+
