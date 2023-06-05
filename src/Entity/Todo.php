@@ -7,9 +7,12 @@ use App\Repository\TodoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TodoRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['todo:read']],
+)]
 class Todo
 {
     #[ORM\Id]
@@ -18,6 +21,7 @@ class Todo
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['todo:read', 'tag:read'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -27,6 +31,7 @@ class Todo
     private ?bool $done = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'todos')]
+    #[Groups(['todo:read'])]
     private Collection $tags;
 
     public function __construct()
