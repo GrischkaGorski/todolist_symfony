@@ -1,0 +1,6 @@
+App\Entity\Todo:
+    todo_{1..10}:
+        title: <realText($maxNbChars = 25)>
+        description: <realText($maxNbChars = 100)>
+        done: <boolean()>
+        tags: '@tag_*'
