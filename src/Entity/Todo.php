@@ -25,10 +25,12 @@ class Todo
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('todo:read')]
     private ?string $description = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $done = null;
+    #[ORM\Column]
+    #[Groups(['todo:read'])]
+    private ?bool $done = false;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'todos')]
     #[Groups(['todo:read'])]
