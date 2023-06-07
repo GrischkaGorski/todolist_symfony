@@ -31,6 +31,7 @@ class TodoTest extends ApiTestCase
         ]);
 
         $this->assertCount(10, $response->toArray()['hydra:member']);
+//        $this->assertMatchesResourceCollectionJsonSchema(Todo::class);
     }
 
     public function testCreateTodo(): void {
@@ -90,5 +91,8 @@ class TodoTest extends ApiTestCase
         $client->request('DELETE', $iri);
 
         $this->assertResponseStatusCodeSame(204);
+        $this->assertNull(
+            static::getContainer()->get('doctrine')->getRepository(Todo::class)->findOneBy(['title' => 'For anything tougher than.'])
+        );
     }
 }
