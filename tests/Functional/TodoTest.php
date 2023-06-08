@@ -31,7 +31,7 @@ class TodoTest extends ApiTestCase
         ]);
 
         $this->assertCount(10, $response->toArray()['hydra:member']);
-//        $this->assertMatchesResourceCollectionJsonSchema(Todo::class);
+        $this->assertMatchesResourceCollectionJsonSchema(Todo::class);
     }
 
     public function testCreateTodo(): void {
@@ -71,7 +71,7 @@ class TodoTest extends ApiTestCase
 
     public function testUpdateTodo(): void {
         $client = static::createClient();
-        $iri = $this->findIriBy(Todo::class, ['title' => 'For anything tougher than.']);
+        $iri = $this->findIriBy(Todo::class, ['title' => 'Consequatur quisquam recusandae asperiores accusamus nihil.']);
 
         $client->request("PUT", $iri, ['json' => [
             'title' => "TestUpdateTodo new title"
@@ -86,13 +86,13 @@ class TodoTest extends ApiTestCase
 
     public function testDeleteTodo(): void {
         $client = static::createClient();
-        $iri = $this->findIriBy(Todo::class, ['title' => 'For anything tougher than.']);
+        $iri = $this->findIriBy(Todo::class, ['title' => 'Sint dolorem delectus enim ipsum inventore sed.']);
 
         $client->request('DELETE', $iri);
 
         $this->assertResponseStatusCodeSame(204);
         $this->assertNull(
-            static::getContainer()->get('doctrine')->getRepository(Todo::class)->findOneBy(['title' => 'For anything tougher than.'])
+            static::getContainer()->get('doctrine')->getRepository(Todo::class)->findOneBy(['title' => 'Sint dolorem delectus enim ipsum inventore sed.'])
         );
     }
 }

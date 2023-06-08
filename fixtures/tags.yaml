@@ -1,4 +1,4 @@
 App\Entity\Tag:
     tag_{1..15}:
-        name: <realText(10)>
+        name: <word()>
         todos: ['@todo_*']

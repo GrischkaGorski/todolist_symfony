@@ -31,7 +31,7 @@ class TagTest extends ApiTestCase
         ]);
 
         $this->assertCount(15, $response->toArray()['hydra:member']);
-//        $this->assertMatchesResourceCollectionJsonSchema(Tag::class);
+        $this->assertMatchesResourceCollectionJsonSchema(Tag::class);
     }
 
     public function testCreateTag(): void {
@@ -68,7 +68,7 @@ class TagTest extends ApiTestCase
 
     public function testUpdateTag(): void {
         $client = static::createClient();
-        $iri = $this->findIriBy(Tag::class, ['name' => 'I should.']);
+        $iri = $this->findIriBy(Tag::class, ['name' => 'fuga']);
 
         $client->request("PUT", $iri, ['json' => [
             'name' => "TestUpdateTag new name"
@@ -83,14 +83,14 @@ class TagTest extends ApiTestCase
 
     public function testDeleteTag(): void {
         $client = static::createClient();
-        $iri = $this->findIriBy(Tag::class, ['name' => 'Suppress.']);
+        $iri = $this->findIriBy(Tag::class, ['name' => 'reiciendis']);
 
         $client->request('DELETE', $iri);
 
         $this->assertResponseStatusCodeSame(204);
 
         $this->assertNull(
-            static::getContainer()->get('doctrine')->getRepository(Tag::class)->findOneBy(['name' => 'Suppress.'])
+            static::getContainer()->get('doctrine')->getRepository(Tag::class)->findOneBy(['name' => 'reiciendis'])
         );
     }
 }
