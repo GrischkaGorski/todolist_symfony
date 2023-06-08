@@ -49,9 +49,11 @@ class TagTest extends TestCase
         $tag->addTodo($todo);
         $tag->addTodo($todo2);
 
+        $this->assertTrue($tag->getTodos()->contains($todo));
+        $this->assertTrue($tag->getTodos()->contains($todo2));
+
         $tag->removeTodo($todo2);
 
-        $this->assertTrue($tag->getTodos()->contains($todo));
         $this->assertFalse($tag->getTodos()->contains($todo2));
     }
 }
