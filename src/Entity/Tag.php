@@ -62,6 +62,7 @@ class Tag
     {
         if (!$this->todos->contains($todo)) {
             $this->todos->add($todo);
+            $todo->addTag($this);
         }
 
         return $this;

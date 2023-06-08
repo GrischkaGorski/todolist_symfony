@@ -1,0 +1,6 @@
+App\Entity\Todo:
+    todo_{1..10}:
+        title: <sentence(5)>
+        description: <sentence(10)>
+        done: <boolean()>
+        tags: ['@tag_*']
