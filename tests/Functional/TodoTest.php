@@ -54,6 +54,20 @@ class TodoTest extends ApiTestCase
         $this->assertMatchesResourceItemJsonSchema(Todo::class);
     }
 
+    public function testCreateTodoWithoutName(): void {
+        $response = static::createClient()->request('POST', '/api/todos', ['json' => [
+        ]]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        $this->assertJsonContains([
+            '@context' => '/api/contexts/ConstraintViolationList',
+            '@type' => 'ConstraintViolationList',
+            'hydra:title' => 'An error occurred',
+            'hydra:description' => 'title: This value should not be blank.'
+        ]);
+    }
+
     public function testCreateInvalidTodo(): void
     {
         $response = static::createClient()->request('POST', '/api/todos', ['json' => [

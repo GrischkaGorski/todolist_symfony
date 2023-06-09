@@ -51,6 +51,20 @@ class TagTest extends ApiTestCase
         $this->assertMatchesResourceItemJsonSchema(Tag::class);
     }
 
+    public function testCreateTagWithoutName(): void {
+        $response = static::createClient()->request('POST', '/api/tags', ['json' => [
+        ]]);
+
+        $this->assertResponseStatusCodeSame(422);
+        $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        $this->assertJsonContains([
+            '@context' => '/api/contexts/ConstraintViolationList',
+            '@type' => 'ConstraintViolationList',
+            'hydra:title' => 'An error occurred',
+            'hydra:description' => 'name: This value should not be blank.'
+        ]);
+    }
+
     public function testCreateInvalidTag(): void
     {
         $response = static::createClient()->request('POST', '/api/tags', ['json' => [
