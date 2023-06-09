@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Todo;
+use App\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,22 +10,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 // ...
 
-class TodoController extends AbstractController
+class TagController extends AbstractController
 {
-    #[Route('/todos/{id}', name: 'todo_show')]
+    #[Route('/tags/{id}', name: 'tag_show')]
     public function show(EntityManagerInterface $entityManager, int $id): Response
     {
-        $todo = $entityManager->getRepository(Todo::class)->find($id);
+        $tag = $entityManager->getRepository(Tag::class)->find($id);
 
         // Vérifie si le todo existe
-        if (!$todo) {
+        if (!$tag) {
             throw $this->createNotFoundException(
-                'No todo found for id ' . $id
+                'No tag found for id ' . $id
             );
         }
 
         // Renvoi le titre du todo
-        return new Response('Check out this great todo: ' . $todo->getTitle());
+        return new Response('Check out this great tag: ' . $tag->getName());
 
 // or render a template
 // in the template, print things with {{ product.name }}

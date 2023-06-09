@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TodosController extends AbstractController
 {
-    #[Route('/todos', name: 'todos_index')]
+    #[Route('/todos', name: 'todos_show')]
     public function show(EntityManagerInterface $entityManager): Response
     {
         $todos = $entityManager->getRepository(Todo::class)->findAll();
@@ -21,12 +21,12 @@ class TodosController extends AbstractController
         }
 
         // Crée une chaîne pour afficher les titres de tous les todos
-        $todoList = '<ul>';
+        $todosList = '<ul>';
         foreach ($todos as $todo) {
-            $todoList .= '<li>' . $todo->getTitle() . '</li>';
+            $todosList .= '<li>' . $todo->getTitle() . '</li>';
         }
-        $todoList .= '</ul>';
+        $todosList .= '</ul>';
 
-        return new Response('<h1>List of Todos</h1>' . $todoList);
+        return new Response('<h1>Liste des Todos</h1>' . $todosList);
     }
 }
