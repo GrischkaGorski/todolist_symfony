@@ -1,0 +1,9 @@
+{% extends 'tasks/layout.html.twig' %}
+
+{% block title %}Tasks Index{% endblock %}
+
+{% block page_contents %}
+    {% for task in tasks %}
+        <h2>{{ task }}</h2>
+    {% endfor %}
+{% endblock %}

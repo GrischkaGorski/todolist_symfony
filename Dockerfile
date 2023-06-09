@@ -4,6 +4,8 @@
 # https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
 # https://docs.docker.com/compose/compose-file/#target
 
+FROM node:18.16.0-alpine AS node
+
 # Build Caddy with the Mercure and Vulcain modules
 # Temporary fix for https://github.com/dunglas/mercure/issues/770
 FROM caddy:2.7-builder-alpine AS app_caddy_builder
@@ -14,6 +16,18 @@ RUN xcaddy build v2.6.4 \
 
 # Prod image
 FROM php:8.2-fpm-alpine AS app_php
+
+COPY --from=node /usr/lib /usr/lib
+COPY --from=node /usr/local/share /usr/local/share
+COPY --from=node /usr/local/lib /usr/local/lib
+COPY --from=node /usr/local/include /usr/local/include
+COPY --from=node /usr/local/bin /usr/local/bin
+
+RUN node -v
+
+RUN npm install -g yarn --force
+
+RUN yarn -v
 
 # Allow to use development versions of Symfony
 ARG STABILITY="stable"
