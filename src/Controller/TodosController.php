@@ -14,17 +14,11 @@ class TodosController extends AbstractController
     #[Route('/', name: 'todos_list')]
     public function todos(TodoRepository $todoRepository, Request $request): Response
     {
-        $todos = $todoRepository->findAll();
+        $todos = $todoRepository->showTodos();
 
         return $this->render('tasks/index.html.twig', [
             'todos' => $todos
         ]);
-    }
-
-    #[Route('/test', name: 'test')]
-    public function test(): Response
-    {
-        return new JsonResponse(['mon' => 'cul']);
     }
 }
 

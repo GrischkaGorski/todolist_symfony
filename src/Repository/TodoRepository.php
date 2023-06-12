@@ -30,8 +30,13 @@ class TodoRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllWithTags() {
-        // A faire méthode qui fetch les todos avec ses tags
+    public function showTodos() {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.tags', 'tags')
+            ->addSelect('tags')
+            ->orderBy('t.done', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     public function remove(Todo $entity, bool $flush = false): void
