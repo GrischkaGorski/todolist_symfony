@@ -1,32 +1,40 @@
-{% extends 'tasks/layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Tasks Index{% endblock %}
 
-{% dump todos %}
-{% block page_contents %}
-    <div {{ react_component("Test", { 'test': 'coucou' } )}}>
-        Chargement
-    </div>
-    =
-    <a href="{{ path('test') }}">Coucou</a>
-    {% for todo in todos %}
-        {{ dump(todo) }}
-        <ul>
-            <li>
-                <div>
-                    {% if todo.done %}
-                        <p>Fait</p>
-                    {% else %}
-                        <p>À faire</p>
-                    {% endif %}
-
-                    <p>{{ todo.title }}</p>
-                </div>
-                {% for tag in todo.tags %}
-                    <p>{{ tag.name }}</p>
+{% block content %}
+    <div class="flex flex-col gap-5 px-20 py-10">
+        <h1 class="text-3xl font-bold">TodoList</h1>
+        {% if todos %}
+            <ul class="flex flex-col gap-5" >
+                {% for todo in todos %}
+                    <li class="w-full rounded shadow p-5 hover:bg-slate-50 hover:cursor-pointer">
+                        <div class="flex">
+                            <div class="w-4/5">
+                                <div class="mb-2">
+                                    <p class="">{{ todo.title }}</p>
+                                    <p class="text-sm font-italic text-slate-400">{{ todo.description }}</p>
+                                </div>
+                                <div>
+                                    {% for tag in todo.tags %}
+                                        <span class="text-xs font-bold uppercase px-2 py-1 bg-blue-200 text-blue-700 rounded-full">{{ tag.name }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="w-1/5 flex justify-center items-center">
+                                <p class="uppercase text-sm font-bold text-slate-400">
+                                    {% if todo.done %}
+                                        Fait
+                                    {% else %}
+                                        À faire
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </li>
                 {% endfor %}
-                <div>===</div>
-            </li>
-        </ul>
-    {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
 {% endblock %}

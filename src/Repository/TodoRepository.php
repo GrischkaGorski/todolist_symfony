@@ -30,7 +30,7 @@ class TodoRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAll() {
+    public function findAllWithTags() {
         // A faire méthode qui fetch les todos avec ses tags
     }
 
