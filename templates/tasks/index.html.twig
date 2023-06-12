@@ -3,7 +3,24 @@
 {% block title %}Tasks Index{% endblock %}
 
 {% block page_contents %}
-    {% for task in tasks %}
-        <h2>{{ task }}</h2>
+    ===
+    {% for todo in todos %}
+        <ul>
+            <li>
+                <div>
+                    {% if todo.done %}
+                        <p>Fait</p>
+                    {% else %}
+                        <p>À faire</p>
+                    {% endif %}
+
+                    <p>{{ todo.title }}</p>
+                </div>
+                {% for tag in todo.tags %}
+                    <p>{{ tag.name }}</p>
+                {% endfor %}
+                <div>===</div>
+            </li>
+        </ul>
     {% endfor %}
 {% endblock %}
