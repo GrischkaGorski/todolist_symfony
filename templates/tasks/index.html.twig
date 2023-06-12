@@ -2,9 +2,15 @@
 
 {% block title %}Tasks Index{% endblock %}
 
+{% dump todos %}
 {% block page_contents %}
-    ===
+    <div {{ react_component("Test", { 'test': 'coucou' } )}}>
+        Chargement
+    </div>
+    =
+    <a href="{{ path('test') }}">Coucou</a>
     {% for todo in todos %}
+        {{ dump(todo) }}
         <ul>
             <li>
                 <div>

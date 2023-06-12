@@ -3,4 +3,4 @@ App\Entity\Todo:
         title: <sentence(5)>
         description: <sentence(10)>
         done: <boolean()>
-        tags: ['@tag_*']
+        tags: ['@tag_*', '@tag_*']

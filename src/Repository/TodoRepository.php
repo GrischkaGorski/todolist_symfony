@@ -30,6 +30,10 @@ class TodoRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAll() {
+        // A faire méthode qui fetch les todos avec ses tags
+    }
+
     public function remove(Todo $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
