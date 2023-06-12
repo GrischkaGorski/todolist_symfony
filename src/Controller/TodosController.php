@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Todo;
 use App\Form\TodoType;
 use App\Repository\TodoRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +26,20 @@ class TodosController extends AbstractController
     }
 
     #[Route('/todos/create', name: 'create_todo')]
-    public function createTodo(Request $request): Response
+    public function createTodo(Request $request, EntityManagerInterface $entityManager): Response
     {
         $todo = new Todo();
 
         $form = $this->createForm(TodoType::class, $todo);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $todo = $form->getData();
+            $entityManager->persist($todo);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('todos_list');
+        }
 
         return $this->render('todos/create.html.twig', ['form' => $form]);
     }

@@ -34,7 +34,7 @@ class TodoRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->leftJoin('t.tags', 'tags')
             ->addSelect('tags')
-            ->orderBy('t.done', 'ASC')
+            ->orderBy('t.id', 'DESC')
             ->getQuery()
             ->getResult();
     }
