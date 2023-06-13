@@ -34,7 +34,7 @@ class Todo
     #[Groups(['todo:read'])]
     private ?bool $done = false;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'todos')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'todos', cascade: ["persist"])]
     #[Groups(['todo:read'])]
     private Collection $tags;
 

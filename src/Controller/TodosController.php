@@ -31,11 +31,14 @@ class TodosController extends AbstractController
         $todo = new Todo();
 
         $form = $this->createForm(TodoType::class, $todo);
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
             $todo = $form->getData();
+
             $entityManager->persist($todo);
+            dump($todo);
             $entityManager->flush();
 
             return $this->redirectToRoute('todos_list');
