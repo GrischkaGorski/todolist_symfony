@@ -4,15 +4,16 @@
 {% block title %}Tasks Index{% endblock %}
 
 {% block content %}
-    <div {{ react_component('Test', { 'test': 'Dddd'}) }}>
-        Loading...
-    </div>
+
     <div class="flex flex-col gap-5 px-20 py-10">
         <h1 class="text-3xl font-bold">TodoList</h1>
+        <div class="flex">
+            <div class="flex" {{ react_component('Link', { 'text': 'Nouveau'})}} >...</div>
+        </div>
         {% if todos %}
             <ul class="flex flex-col gap-5" >
                 {% for todo in todos %}
-                    <li class="w-full rounded shadow p-5 hover:bg-slate-50 hover:cursor-pointer">
+                    <li class="w-full rounded-md border border-slate-200 shadow shadow-slate-200 p-5 hover:bg-blue-50 hover:cursor-pointer">
                         <div class="flex">
                             <div class="w-4/5">
                                 <div class="mb-2">
