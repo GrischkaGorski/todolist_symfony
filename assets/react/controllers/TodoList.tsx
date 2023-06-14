@@ -1,7 +1,20 @@
 import React, {useEffect, useState} from 'react';
 
-export default function () {
-  const [todos, setTodos] = useState();
+interface Todo {
+  id: number;
+  title: string;
+  description?: string;
+  done: boolean;
+  tags: Tag[];
+}
+
+interface Tag {
+  id: number;
+  name: string;
+}
+
+export default function TodoList() {
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   const fetchTodos = async (): Promise<void> => {
     try {
@@ -18,7 +31,7 @@ export default function () {
   }, []);
 
   return (
-    <div>
+    <>
       {todos?.length > 0 && (
         <ul className="flex flex-col gap-5">
           {todos.map(todo => (
@@ -53,6 +66,6 @@ export default function () {
           ))}
         </ul>
       )}
-    </div>
+    </>
   )
 }
