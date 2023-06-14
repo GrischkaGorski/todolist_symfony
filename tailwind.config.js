@@ -5,7 +5,14 @@ module.exports = {
     "./templates/**/*.html.twig"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontSize: {
+        '2xs': '0.5rem'
+      },
+      lineHeight: {
+        '2xs': '0.5rem'
+      }
+    },
   },
   plugins: [],
 }
