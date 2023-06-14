@@ -9,7 +9,6 @@
         {% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-
             <!-- Renders app.ts & a webpack runtime.js file
                 <script src="/build/runtime.js" defer></script>
                 <script src="/build/app.ts" defer></script>
@@ -18,7 +17,7 @@
     </head>
     <body>
         {% block body %}
-            <div id="content">
+            <div id="content" class="flex flex-col gap-5 px-20 py-10">
                 {% block content %}{% endblock %}
             </div>
         {% endblock %}

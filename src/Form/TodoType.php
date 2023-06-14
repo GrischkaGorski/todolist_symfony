@@ -17,10 +17,10 @@ class TodoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, ['label'=> 'Titre de la tâche :'])
-            ->add('description', TextType::class, ['label'=> 'Description de la tâche :','required' => false])
-            ->add('done', CheckboxType::class, ['label'=> 'Tâche déjà faite :','required' => false])
-            ->add('tags', EntityType::class, ['label'=> 'Tags associés : ', 'class' => Tag::class, 'choice_label' => 'name', 'multiple' => true, 'required' => false, 'by_reference' => false])
+            ->add('title', TextType::class, ['label'=> 'Titre'])
+            ->add('description', TextType::class, ['label'=> 'Description','required' => false])
+            ->add('done', CheckboxType::class, ['label'=> 'Terminée','required' => false])
+            ->add('tags', EntityType::class, ['label'=> 'Tags', 'class' => Tag::class, 'choice_label' => 'name', 'multiple' => true, 'required' => false, 'by_reference' => false])
             ->add('save', SubmitType::class, ['label' => 'Créer'])
         ;
     }
