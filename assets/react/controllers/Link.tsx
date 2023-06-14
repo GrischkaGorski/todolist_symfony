@@ -2,14 +2,23 @@ import React from 'react';
 
 interface Props {
   text: string
+  href: string
+  color: 'blue' | 'red'
 }
 
 export default function (props: Props) {
-    const { text } = props;
+    const { text, href, color } = props;
+
+    const colorVariants:{[key in Props['color']]: string} = {
+      blue: 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-300',
+      red: 'bg-red-700 hover:bg-red-800 focus:ring-red-300',
+    }
+
     return (
         <a
-          href="/todos/create"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+          href={href}
+          className={`${colorVariants[color]} text-white focus:ring-4 font-medium rounded-md text-sm px-5 py-2.5 focus:outline-none`}
+        >
           {text}
         </a>
     )
