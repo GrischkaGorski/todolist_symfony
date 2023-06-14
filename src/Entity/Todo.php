@@ -13,13 +13,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: TodoRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['todo:read']],
+    order: ['id' => 'DESC']
 )]
 class Todo
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('todo:read')]
+    #[Groups(['todo:read', 'tag:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]

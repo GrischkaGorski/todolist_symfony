@@ -19,6 +19,7 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['todo:read', 'tag:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
