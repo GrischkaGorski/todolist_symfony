@@ -40,7 +40,7 @@ export default function TodosFilter({todos, filteredTodos, setFilteredTodos}: To
   }
 
   const handleTagCheck = (e: FormEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = (e.target as HTMLInputElement).value;
     if (!checkedTags.includes(value)) {
       setCheckTags(prev => [ ...prev, value])
     } else {
