@@ -39,12 +39,11 @@ export default function TodoList() {
     setFilteredTodos(todos);
   }, [todos]);
 
-
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex">
+      <div className="flex justify-between">
         <Link text="Nouveau" href="/todos/create" color="blue"/>
-        <TodosFilter todos={todos} setFilteredTodos={setFilteredTodos} />
+        <TodosFilter todos={todos}  filteredTodos={filteredTodos} setFilteredTodos={setFilteredTodos} />
       </div>
       {filteredTodos?.length > 0 && (
         <ul className="flex flex-col gap-5">
