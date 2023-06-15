@@ -4,9 +4,6 @@
 
 {% block content %}
     <h1 class="text-3xl font-bold text-slate-600">TodoList</h1>
-    <div class="flex">
-        <div class="flex" {{ react_component('Link', { 'text': 'Nouveau', 'href': '/todos/create', 'color': 'blue'})}} >...</div>
-    </div>
     <div {{ react_component('TodoList') }}>
         <div class="flex justify-center">
             <div role="status">
