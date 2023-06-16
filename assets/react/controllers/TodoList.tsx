@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Link from "./Link";
 import TodoItem from "../components/TodoItem"
 import TodosFilter from "../components/TodosFilter";
@@ -16,9 +16,13 @@ export interface Tag {
   name: string;
 }
 
-export default function TodoList() {
+export default function TodoList(): JSX.Element {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [filteredTodos, setFilteredTodos] = useState<Todo[]>([])
+  const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
+  const [filters, setFilters] = useState<{ checkedTags: string[], doneFilter: string }>({
+    checkedTags: [],
+    doneFilter: ''
+  });
 
   const fetchTodos = async (): Promise<void> => {
     try {
@@ -35,11 +39,11 @@ export default function TodoList() {
   }, []);
 
   useEffect(() => {
-    setFilteredTodos(todos)
-  }, [todos])
+    filterTodos();
+  }, [todos, filters]);
 
-  const handleFilterChange = useCallback((filter: { checkedTags: string[], doneFilter: string }) => {
-    const { checkedTags, doneFilter } = filter;
+  const filterTodos = useCallback(() => {
+    const { checkedTags, doneFilter } = filters;
 
     const filteredTodos = todos.filter(todo =>
       checkedTags.every(checkedTag =>
@@ -56,10 +60,13 @@ export default function TodoList() {
     });
 
     setFilteredTodos(filteredTodos);
+  }, [todos, filters]);
 
-  }, [todos]);
+  const handleFilterChange = useCallback((filter: { checkedTags: string[], doneFilter: string }) => {
+    setFilters(filter);
+  }, []);
 
-  const saveNewTodo = useCallback(async (newDoneValue: boolean, todoId: number) => {
+  const saveNewTodo = async (newDoneValue: boolean, todoId: number): Promise<void> => {
     try {
       const res = await fetch(`/api/todos/${todoId}`, {
         method: 'PATCH',
@@ -80,21 +87,21 @@ export default function TodoList() {
     } catch (error) {
       console.error(error);
     }
-  }, [todos])
+  };
 
   return (
     <div className="flex flex-col gap-5">
       <div className="flex justify-between">
-        <Link text="Nouveau" href="/todos/create" color="blue"/>
-        <TodosFilter handleFilterChange={handleFilterChange}/>
+        <Link text="Nouveau" href="/todos/create" color="blue" />
+        <TodosFilter handleFilterChange={handleFilterChange} />
       </div>
       {filteredTodos?.length > 0 && (
         <ul className="flex flex-col gap-5">
           {filteredTodos.map(todo => (
-            <TodoItem key={todo.id} todo={todo}  saveNewTodo={saveNewTodo}/>
+            <TodoItem key={todo.id} todo={todo} saveNewTodo={saveNewTodo} />
           ))}
         </ul>
       )}
     </div>
-  )
+  );
 }
