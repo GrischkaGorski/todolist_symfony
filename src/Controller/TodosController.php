@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TodosController extends AbstractController
 {
-    #[Route('/todos', name: 'todos_list')]
+    #[Route('/', name: 'todos_list')]
     public function todos(TodoRepository $todoRepository): Response
     {
         $todos = $todoRepository->showTodos();
