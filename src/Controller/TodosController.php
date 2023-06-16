@@ -44,5 +44,12 @@ class TodosController extends AbstractController
 
         return $this->render('todos/create.html.twig', ['form' => $form]);
     }
+
+    #[Route('/todos/done/delete', name: 'delete_done')]
+    public function deleteDone(TodoRepository $todoRepository): Response {
+        $todoRepository->deleteDoneTodos();
+
+        return $this->redirectToRoute('todos_list');
+    }
 }
 

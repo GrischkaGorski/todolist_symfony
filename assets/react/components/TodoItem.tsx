@@ -48,7 +48,7 @@ export default function TodoItem({ todo, saveNewTodo, deleteTodo}: TodoItemProps
           <p onClick={handleDoneToggle} className={`${colorVariants[String(todo.done)]} w-1/2 text-center uppercase text-sm font-bold hover:cursor-pointer`}>
             {todo.done ? "Fait" : "À faire"}
           </p>
-          <RxCross2 onClick={handleDeleteTodo} className="w-1/2 h-5 text-slate-600 hover:text-slate-900 hover:cursor-pointer"/>
+          <RxCross2 onClick={handleDeleteTodo} className="w-1/2 h-5 text-slate-400 hover:text-slate-900 hover:cursor-pointer"/>
         </div>
       </div>
     </li>

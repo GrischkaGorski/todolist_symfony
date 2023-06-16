@@ -48,6 +48,16 @@ class TodoRepository extends ServiceEntityRepository
         }
     }
 
+    public function deleteDoneTodos(): int
+    {
+        $qb = $this->createQueryBuilder('t');
+        $qb->delete()
+            ->where('t.done = :done')
+            ->setParameter('done', true);
+
+        return $qb->getQuery()->execute();
+    }
+
 //    /**
 //     * @return Todo[] Returns an array of Todo objects
 //     */

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Link from "./Link";
 import TodoItem from "../components/TodoItem"
 import TodosFilter from "../components/TodosFilter";
+import {BsFillTrashFill} from "react-icons/bs";
 
 export interface Todo {
   id: number;
@@ -106,7 +107,10 @@ export default function TodoList(): JSX.Element {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex justify-between">
-        <Link text="Nouveau" href="/todos/create" color="blue" />
+        <div className="flex gap-5">
+          <Link text="Nouveau" href="/todos/create" color="blue" />
+          <Link text="Supprimer toutes les tâches faîtes" href="/todos/done/delete" color="red"/>
+        </div>
         <TodosFilter handleFilterChange={handleFilterChange} />
       </div>
       {filteredTodos?.length > 0 && (
