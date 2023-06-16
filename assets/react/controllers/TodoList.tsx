@@ -89,6 +89,20 @@ export default function TodoList(): JSX.Element {
     }
   };
 
+  const deleteTodo = async (todoId: number): Promise<void> => {
+    try {
+      const res = await fetch(`/api/todos/${todoId}`, {
+        method: 'DELETE',
+      });
+
+      const updatedTodos = todos.filter(todo => todo.id !== todoId);
+
+      setTodos(updatedTodos);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex justify-between">
@@ -98,7 +112,7 @@ export default function TodoList(): JSX.Element {
       {filteredTodos?.length > 0 && (
         <ul className="flex flex-col gap-5">
           {filteredTodos.map(todo => (
-            <TodoItem key={todo.id} todo={todo} saveNewTodo={saveNewTodo} />
+            <TodoItem key={todo.id} todo={todo} saveNewTodo={saveNewTodo} deleteTodo={deleteTodo}/>
           ))}
         </ul>
       )}

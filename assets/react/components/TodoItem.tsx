@@ -1,20 +1,26 @@
 import React, {useState} from 'react';
 import {Todo} from "../controllers/TodoList";
+import {RxCross2} from "react-icons/rx";
 
 interface TodoItemProps {
   todo: Todo;
   saveNewTodo: (newDoneValue: boolean, todoId: number) => Promise<void>;
+  deleteTodo: (todoId: number) => Promise<void>;
 }
 
-export default function TodoItem({ todo, saveNewTodo}: TodoItemProps) {
+export default function TodoItem({ todo, saveNewTodo, deleteTodo}: TodoItemProps) {
   const handleDoneToggle = () => {
     const newDoneValue = !todo.done;
     saveNewTodo(newDoneValue, todo.id);
   }
 
+  const handleDeleteTodo = () => {
+    deleteTodo(todo.id)
+  }
+
   const colorVariants: { [key: string]: string } = {
-    true: 'text-green-400',
-    false: 'text-slate-400',
+    true: 'text-slate-200 hover:text-slate-900',
+    false: 'text-red-700 hover:text-red-900',
   };
 
   return (
@@ -38,10 +44,11 @@ export default function TodoItem({ todo, saveNewTodo}: TodoItemProps) {
             </div>
           }
         </div>
-        <div className="w-1/5 flex justify-center items-center">
-          <p onClick={handleDoneToggle} className={`${colorVariants[String(todo.done)]} uppercase text-sm font-bold hover:cursor-pointer`}>
+        <div className="w-1/5 flex justify-between items-center">
+          <p onClick={handleDoneToggle} className={`${colorVariants[String(todo.done)]} w-1/2 text-center uppercase text-sm font-bold hover:cursor-pointer`}>
             {todo.done ? "Fait" : "À faire"}
           </p>
+          <RxCross2 onClick={handleDeleteTodo} className="w-1/2 h-5 text-slate-600 hover:text-slate-900 hover:cursor-pointer"/>
         </div>
       </div>
     </li>
