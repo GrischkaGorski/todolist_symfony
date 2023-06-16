@@ -1,44 +1,21 @@
 import React, {useState} from 'react';
+import {Todo} from "../controllers/TodoList";
 
-interface Todo {
-  id: number;
-  title: string;
-  description?: string;
-  done: boolean;
-  tags: Tag[];
+interface TodoItemProps {
+  todo: Todo;
+  saveNewTodo: (newDoneValue: boolean, todoId: number) => Promise<void>;
 }
 
-interface Tag {
-  id: number;
-  name: string;
-}
+export default function TodoItem({ todo, saveNewTodo}: TodoItemProps) {
+  const handleDoneToggle = () => {
+    const newDoneValue = !todo.done;
+    saveNewTodo(newDoneValue, todo.id);
+  }
 
-export default function TodoItem(todo: Todo) {
   const colorVariants: { [key: string]: string } = {
     true: 'text-green-400',
     false: 'text-slate-400',
   };
-
-  const handleDoneToggle = (): void => {
-    const newDoneValue = {'done' : !todo.done};
-    updateDoneTodo(newDoneValue)
-  };
-
-  const updateDoneTodo = async (value: Partial<Todo>) => {
-    console.log(JSON.stringify(value))
-    try {
-      const res = await fetch(`https://localhost/api/todos/${todo.id}`, {
-        method: "post",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(value)
-      })
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   return (
     <li

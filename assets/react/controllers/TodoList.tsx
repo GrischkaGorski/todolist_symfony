@@ -59,6 +59,29 @@ export default function TodoList() {
 
   }, [todos]);
 
+  const saveNewTodo = useCallback(async (newDoneValue: boolean, todoId: number) => {
+    try {
+      const res = await fetch(`/api/todos/${todoId}`, {
+        method: 'PATCH',
+        headers: {
+          'Accept': 'application/ld+json',
+          'Content-Type': 'application/merge-patch+json'
+        },
+        body: JSON.stringify({ done: newDoneValue })
+      });
+
+      const updatedTodos = todos.map(todo => {
+        if (todo.id === todoId) {
+          return { ...todo, done: newDoneValue };
+        }
+        return todo;
+      });
+      setTodos(updatedTodos);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [todos])
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex justify-between">
@@ -68,7 +91,7 @@ export default function TodoList() {
       {filteredTodos?.length > 0 && (
         <ul className="flex flex-col gap-5">
           {filteredTodos.map(todo => (
-            <TodoItem key={todo.id} {...todo}/>
+            <TodoItem key={todo.id} todo={todo}  saveNewTodo={saveNewTodo}/>
           ))}
         </ul>
       )}
