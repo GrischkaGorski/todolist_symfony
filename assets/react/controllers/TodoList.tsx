@@ -104,12 +104,26 @@ export default function TodoList(): JSX.Element {
     }
   };
 
+  const deleteDoneTodos = async (): Promise<void> => {
+    try {
+      const res = await fetch('/api/todos/delete/done', {
+        method: 'DELETE',
+      });
+
+      const updatedTodos = todos.filter(todo => !todo.done);
+
+      setTodos(updatedTodos);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex justify-between">
         <div className="flex gap-5">
           <Link text="Nouveau" href="/todos/create" color="blue" />
-          <Link text="Supprimer toutes les tâches faîtes" href="/todos/done/delete" color="red"/>
+          <button className="text-slate-400 hover:text-slate-900" onClick={deleteDoneTodos}>Supprimer toutes les tâches faîtes</button>
         </div>
         <TodosFilter handleFilterChange={handleFilterChange} />
       </div>

@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(operations: [
-    new Delete(uriTemplate: '/todo/delete/done', controller: TodosController::class, name: 'delete_done')
+    new Delete(uriTemplate: '/api/todos/delete/done', controller: TodosController::class, name: 'delete_done')
 ])]
 #[ORM\Entity(repositoryClass: TodoRepository::class)]
 #[ApiResource(
