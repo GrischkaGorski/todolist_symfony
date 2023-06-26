@@ -21,7 +21,7 @@ class TodoType extends AbstractType
             ->add('description', TextType::class, ['label'=> 'Description','required' => false])
             ->add('done', CheckboxType::class, ['label'=> 'Terminée','required' => false])
             ->add('tags', EntityType::class, ['label'=> 'Tags', 'class' => Tag::class, 'choice_label' => 'name', 'multiple' => true, 'required' => false, 'by_reference' => false])
-            ->add('save', SubmitType::class, ['label' => 'Créer'])
+            ->add('save', SubmitType::class, ['label' => 'Valider'])
         ;
     }
 
