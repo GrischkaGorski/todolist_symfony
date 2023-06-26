@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Link from "./Link";
 import TodoItem from "../components/TodoItem"
 import TodosFilter from "../components/TodosFilter";
-import {BsFillTrashFill} from "react-icons/bs";
 
 export interface Todo {
   id: number;
@@ -15,6 +14,7 @@ export interface Todo {
 export interface Tag {
   id: number;
   name: string;
+  todos: Todo[]
 }
 
 export default function TodoList(): JSX.Element {
@@ -121,9 +121,11 @@ export default function TodoList(): JSX.Element {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex justify-between">
-        <div className="flex gap-5">
-          <Link text="Nouveau" href="/todos/create" color="blue" />
+        <div className="flex gap-5 items-center">
+          <Link text="Ajouter" href="/todos/create" color="blue" />
           <button className="text-slate-400 hover:text-slate-900" onClick={deleteDoneTodos}>Supprimer toutes les tâches faîtes</button>
+          <div className="h-full w-[1px] bg-slate-200"></div>
+          <a href="/tags" className="text-slate-400 hover:text-slate-900">Gérer les tags</a>
         </div>
         <TodosFilter handleFilterChange={handleFilterChange} />
       </div>

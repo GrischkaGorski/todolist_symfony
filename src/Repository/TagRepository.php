@@ -30,6 +30,15 @@ class TagRepository extends ServiceEntityRepository
         }
     }
 
+    public function showTags() {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.todos', 'todos')
+            ->addSelect('todos')
+            ->orderBy('t.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function remove(Tag $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

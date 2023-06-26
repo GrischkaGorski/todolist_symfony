@@ -39,8 +39,8 @@ export default function TodoItem({ todo, saveNewTodo, deleteTodo}: TodoItemProps
               <div className="flex gap-2 mt-4 flex-wrap">
                 {todo?.tags?.map(tag => (
                   <span key={tag.id} className="text-2xs font-bold uppercase px-2 py-1 bg-blue-200 text-blue-700 rounded-full">
-                  {tag.name}
-                </span>
+                   {tag.name}
+                  </span>
                 ))}
               </div>
             }
