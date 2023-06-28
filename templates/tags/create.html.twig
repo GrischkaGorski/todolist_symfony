@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tag create{% endblock %}
+
+{% block content_title %}
+    <h1 class="text-3xl font-bold text-slate-600">Créer un tag</h1>
+{% endblock %}
+
+{% block content %}
+    {{ form(form) }}
+    <div class="flex">
+        <div class="flex" {{ react_component('Link', { 'text': 'Accueil', 'href': '/', 'color': 'blue'})}} >...</div>
+    </div>
+{% endblock %}

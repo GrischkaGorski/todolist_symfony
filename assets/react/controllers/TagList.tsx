@@ -49,7 +49,10 @@ export default function TagList(): JSX.Element {
   }, []);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-5">
+      <div className="flex gap-5 items-center">
+        <Link text="Ajouter" href="/tags/create" color="blue" />
+      </div>
       <div className="flex flex-col gap-5">
         {tags?.length > 0 && (
           <ul className="flex gap-5 flex-wrap">
@@ -59,7 +62,7 @@ export default function TagList(): JSX.Element {
           </ul>
         )}
       </div>
-      <div>
+      <div className="flex">
         <Link color="blue" href="/" text="Accueil"/>
       </div>
     </div>

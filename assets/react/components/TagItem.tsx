@@ -35,7 +35,7 @@ export default function TagItem({ tag, saveNewTag, deleteTag}: TodoItemProps) {
             onChange={handleChange}
           />
           <button onClick={() => deleteTag(tag.id)}>
-            <RxCross2 className="text-red-600 hover:text-red-900 hover:cursor-pointer"/>
+            <RxCross2 className="text-slate-600 hover:text-slate-900 hover:cursor-pointer"/>
           </button>
         </div>
         <p className="text-slate-400 font-bold flex flex-start">
