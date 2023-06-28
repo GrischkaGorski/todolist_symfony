@@ -18,6 +18,10 @@
     </head>
     <body>
         {% block body %}
+            <p>{{ app.user ?  'Salut ' ~ app.user.username ~ ' !'}}</p>
+            <a href="/{{ app.user ? 'logout' : 'login' }}">
+                {{ app.user ? 'Se déconnecter' : 'Se connecter' }}
+            </a>
             <div id="content" class="flex flex-col gap-5 px-20 py-10">
                 {% block content_title %}{% endblock %}
                 {% block content %}{% endblock %}
