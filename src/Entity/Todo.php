@@ -45,6 +45,9 @@ class Todo
     #[Groups(['todo:read'])]
     private Collection $tags;
 
+    #[ORM\ManyToOne(inversedBy: 'todos')]
+    private ?User $person = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -114,6 +117,18 @@ class Todo
         if ($this->tags->removeElement($tag)) {
             $tag->removeTodo($this);
         }
+
+        return $this;
+    }
+
+    public function getPerson(): ?User
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?User $person): self
+    {
+        $this->person = $person;
 
         return $this;
     }
