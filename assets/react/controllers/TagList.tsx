@@ -62,9 +62,6 @@ export default function TagList(): JSX.Element {
           </ul>
         )}
       </div>
-      <div className="flex">
-        <Link color="blue" href="/" text="Accueil"/>
-      </div>
     </div>
   );
 }
