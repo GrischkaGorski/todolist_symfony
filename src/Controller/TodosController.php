@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Todo;
+use App\Entity\User;
 use App\Form\TodoType;
 use App\Repository\TodoRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,14 +27,19 @@ class TodosController extends AbstractController
     #[Route('/todos/create', name: 'create_todo')]
     public function createTodo(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
         $todo = new Todo();
-
         $form = $this->createForm(TodoType::class, $todo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $todo = $form->getData();
+
+            if ($user instanceof User) {
+                $user->addTodo($todo);
+                $todo->setCreator($user);
+            }
 
             $entityManager->persist($todo);
             $entityManager->flush();

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -21,6 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['todo:read'])]
     private ?string $username = null;
 
     #[ORM\Column]
@@ -32,7 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'person', targetEntity: Todo::class)]
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Todo::class)]
     private Collection $todos;
 
     public function __construct()
@@ -122,7 +124,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->todos->contains($todo)) {
             $this->todos->add($todo);
-            $todo->setPerson($this);
+            $todo->setCreator($this);
         }
 
         return $this;
@@ -132,8 +134,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->todos->removeElement($todo)) {
             // set the owning side to null (unless already changed)
-            if ($todo->getPerson() === $this) {
-                $todo->setPerson(null);
+            if ($todo->getCreator() === $this) {
+                $todo->setCreator(null);
             }
         }
 

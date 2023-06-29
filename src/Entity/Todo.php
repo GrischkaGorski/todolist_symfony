@@ -46,7 +46,8 @@ class Todo
     private Collection $tags;
 
     #[ORM\ManyToOne(inversedBy: 'todos')]
-    private ?User $person = null;
+    #[Groups(['todo:read'])]
+    private ?User $creator = null;
 
     public function __construct()
     {
@@ -121,14 +122,14 @@ class Todo
         return $this;
     }
 
-    public function getPerson(): ?User
+    public function getCreator(): ?User
     {
-        return $this->person;
+        return $this->creator;
     }
 
-    public function setPerson(?User $person): self
+    public function setCreator(?User $creator): self
     {
-        $this->person = $person;
+        $this->creator = $creator;
 
         return $this;
     }

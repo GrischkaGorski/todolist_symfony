@@ -9,6 +9,7 @@ export interface Todo {
   description?: string;
   done: boolean;
   tags: Tag[];
+  creator?: {username: string}
 }
 
 export interface Tag {
