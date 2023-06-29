@@ -18,11 +18,22 @@
     </head>
     <body>
         {% block body %}
-            <p>{{ app.user ?  'Salut ' ~ app.user.username ~ ' !'}}</p>
-            <a href="/{{ app.user ? 'logout' : 'login' }}">
-                {{ app.user ? 'Se déconnecter' : 'Se connecter' }}
-            </a>
-            <div id="content" class="flex flex-col gap-5 px-20 py-10">
+            {% block header %}
+                <div class="flex justify-between px-4 py-2 bg-blue-700 text-white">
+                    <div class="flex gap-5">
+                        <a class="hover:text-slate-300" href="/">Todos</a>
+                        <div class="h-full w-[2px] bg-white"></div>
+                        <a class="hover:text-slate-300" href="/tags">Tags</a>
+                    </div>
+                    <div class="flex gap-5">
+                        <p>{{ app.user ?  'Salut, ' ~ app.user.username ~ ' !'}}</p>
+                        <a class="hover:text-slate-300" href="/{{ app.user ? 'logout' : 'login' }}">
+                            {{ app.user ? 'Se déconnecter' : 'Se connecter' }}
+                        </a>
+                    </div>
+                </div>
+            {% endblock %}
+            <div id="content" class="flex flex-col gap-5 px-20 py-8">
                 {% block content_title %}{% endblock %}
                 {% block content %}{% endblock %}
             </div>
