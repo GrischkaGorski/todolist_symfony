@@ -13,7 +13,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity(fields: ['username'], message: 'Il y a déjà un compte qu utilise ce nom')]
+#[UniqueEntity(fields: ['email'], message: 'Il y a déjà un compte qui utilise cet email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -36,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Todo::class)]
     private Collection $todos;
+
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
 
     public function __construct()
     {
@@ -138,6 +142,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $todo->setCreator(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }
