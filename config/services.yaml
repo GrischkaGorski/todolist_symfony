@@ -29,3 +29,5 @@ services:
 #            $twig: '@twig'
     Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.entity_manager'
 
+    App\Fixtures\Providers\HashPasswordProvider:
+        tags: [ { name: nelmio_alice.faker.provider } ]
