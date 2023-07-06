@@ -85,7 +85,7 @@ class TodoTest extends ApiTestCase
 
     public function testUpdateTodo(): void {
         $client = static::createClient();
-        $iri = $this->findIriBy(Todo::class, ['title' => 'Consequatur quisquam recusandae asperiores accusamus nihil.']);
+        $iri = $this->findIriBy(Todo::class, ['title' => 'Ex eveniet facere sunt quia.']);
 
         $client->request("PUT", $iri, ['json' => [
             'title' => "TestUpdateTodo new title"
@@ -100,7 +100,7 @@ class TodoTest extends ApiTestCase
 
     public function testDeleteTodo(): void {
         $client = static::createClient();
-        $iri = $this->findIriBy(Todo::class, ['title' => 'Sint dolorem delectus enim ipsum inventore sed.']);
+        $iri = $this->findIriBy(Todo::class, ['title' => 'Omnis voluptates id amet et et suscipit.']);
 
         $client->request('DELETE', $iri);
 
